@@ -7,8 +7,9 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
-private const val BASE_URL = "http://172.29.88.16:4507/"
+private const val BASE_URL = "http://172.29.88.16:8080/api/"
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(
@@ -17,11 +18,11 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface ApiService {
-    @GET("photos")
-    suspend fun getPhotos(): List<RequestData>
+    @GET("rand-doggy")
+    suspend fun randDoggy(): BaseResponse
 
-    @GET("{imgUrl}")
-    suspend fun getPhoto(@Path("imgUrl") imgUrl: String): ResponseBody
+    @GET("get-doggy")
+    suspend fun getDoggy(@Query("name") doggyName: String): ResponseBody
 }
 
 object RequestApi {

@@ -34,20 +34,25 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         val testButton = findViewById<Button>(R.id.test_button)
         val testText = findViewById<TextView>(R.id.test_text)
-        val testPic = findViewById<ImageView>(R.id.test_pic)
+        val testPic = findViewById<ImageView>(R.id.test_gif)
 
         testButton.setOnClickListener {
             launch(exceptionHandler) {
-                val tmp = RequestApi.retrofitService.getPhotos()
-                val first = tmp[0].imgSrc.substringAfterLast('/')
+                val response = RequestApi.retrofitService.randDoggy()
 
-                val avatar = File("$filesDir/$first")
+                if (response.results != null) {
+                    val doggyName = response.results.doggyName.substringBeforeLast('.')
+                    val doggyComment = response.results.comment
+                    testText.text = doggyComment
 
-                if (!avatar.exists()) {
-                    val result = RequestApi.retrofitService.getPhoto(first)
-                    result.byteStream().buffered().copyTo(avatar.outputStream())
+                    val doggyFile = File("$filesDir/$doggyName")
+
+                    if (!doggyFile.exists()) {
+                        val result = RequestApi.retrofitService.getDoggy(doggyName)
+                        result.byteStream().buffered().copyTo(doggyFile.outputStream())
+                    }
+                    testPic.setImageURI(Uri.fromFile(doggyFile))
                 }
-                testPic.setImageURI(Uri.fromFile(avatar))
             }
         }
     }
