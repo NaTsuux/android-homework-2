@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DrawSim</string>
+    <string name="comment">摇一摇来抽卡！</string>
+    <string name="send_button_text">点击一下</string>
+</resources>
