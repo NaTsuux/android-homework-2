@@ -1,4 +1,4 @@
-package com.example.drawsim.network
+package com.example.doggysim.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -6,10 +6,9 @@ import okhttp3.MediaType
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val BASE_URL = "http://172.29.88.16:8080/api/"
+private const val BASE_URL = "http://172.81.241.189:8080/api/"
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(

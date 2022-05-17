@@ -19,6 +19,7 @@
             android:text="@string/send_button_text"
             android:layout_column="0"
             android:layout_row="0"
+            android:layout_marginStart="20pt"
             />
 
         <TextView
@@ -27,6 +28,7 @@
             android:layout_marginStart="20pt"
             android:layout_row="0"
             android:layout_column="1"
+            android:textSize="18sp"
             android:text="@string/comment" />
     </GridLayout>
 

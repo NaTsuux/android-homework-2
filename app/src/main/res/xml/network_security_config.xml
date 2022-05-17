@@ -4,5 +4,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">172.29.88.16</domain>
+        <domain includeSubdomains="true">172.81.241.189</domain>
     </domain-config>
 </network-security-config>

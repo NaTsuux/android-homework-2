@@ -1,4 +1,4 @@
-package com.example.drawsim.network
+package com.example.doggysim.network
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
