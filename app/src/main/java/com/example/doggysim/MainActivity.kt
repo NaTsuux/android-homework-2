@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
                 val doggyFile = File("$filesDir/$doggyName")
 
+                // 优先显示本地缓存中的狗图
                 if (!doggyFile.exists()) {
                     val result = RequestApi.retrofitService.getDoggy(doggyName)
                     result.byteStream().buffered().copyTo(doggyFile.outputStream())

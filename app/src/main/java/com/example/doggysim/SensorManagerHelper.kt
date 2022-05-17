@@ -7,9 +7,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 
 class SensorManagerHelper(private val context: Context) : SensorEventListener {
-    private val SPEED_SHRESHOLD = 5000
-    private val UPTATE_INTERVAL_TIME = 50
-    private val SHAKE_INTERVAL_TIME = 1000
     private var sensorManager: SensorManager? = null
     private var sensor: Sensor? = null
     private var onShakeListener: OnShakeListener? = null
@@ -24,8 +21,7 @@ class SensorManagerHelper(private val context: Context) : SensorEventListener {
     }
 
     private fun start() {
-        sensorManager = context
-            .getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = context.getSystemService(Context.SENSOR_SERVICE)!! as SensorManager
         if (sensorManager != null) {
             sensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         }
@@ -52,7 +48,7 @@ class SensorManagerHelper(private val context: Context) : SensorEventListener {
     override fun onSensorChanged(event: SensorEvent) {
         val currentUpdateTime = System.currentTimeMillis()
         val timeInterval = currentUpdateTime - lastUpdateTime
-        if (timeInterval < UPTATE_INTERVAL_TIME) return
+        if (timeInterval < UPDATE_INTERVAL_TIME) return
 
         lastUpdateTime = currentUpdateTime
 
@@ -69,11 +65,17 @@ class SensorManagerHelper(private val context: Context) : SensorEventListener {
         lastZ = z
         val speed = Math.sqrt((deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ).toDouble()) / timeInterval * 10000
 
-        if (speed >= SPEED_SHRESHOLD && currentUpdateTime - lastShakeTime >= SHAKE_INTERVAL_TIME) {
+        if (speed >= SPEED_THRESHOLD && currentUpdateTime - lastShakeTime >= SHAKE_INTERVAL_TIME) {
             onShakeListener!!.onShake()
             lastShakeTime = currentUpdateTime
         }
     }
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+
+    companion object {
+        private const val SPEED_THRESHOLD = 5000
+        private const val UPDATE_INTERVAL_TIME = 50
+        private const val SHAKE_INTERVAL_TIME = 1000
+    }
 }
